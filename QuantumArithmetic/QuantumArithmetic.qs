@@ -9,24 +9,24 @@
         Message("Hello quantum world!");
     }
 
-    operation Add(x : Int, y : Int) : Int
+    operation Add(x : Double, y : Double) : Double
     {
         return x + y;
     }
 
-    operation Subtract(x : Int, y : Int) : Int
+    operation Subtract(x : Double, y : Double) : Double
     {
         return x - y;
     }
 
-    operation Multiply(x : Int, y : Int) : Int
+    operation Multiply(x : Double, y : Double) : Double
     {
         return x * y;
     }
 
-    operation Divide(x : Int, y : Int) : Int
+    operation Divide(x : Double, y : Double) : Double
     {
-        if (y == 0)
+        if (y == 0.0)
         {
             fail "Divide by zero";
         }

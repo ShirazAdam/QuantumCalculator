@@ -5,36 +5,39 @@ open QuantumArithmetic
 
 let quantumSimulator = new QuantumSimulator()
 
-let plusfunc() = 
+let plusfunc() =
     async {
-        let plus = quantumSimulator.Run(Add 3 4) |> Async.AwaitTask 
-        printfn "3 + 4 = %M" plus
+        let! plus = quantumSimulator.Run<Add, (double * double), double>(3, 4) |> Async.AwaitTask
+        printfn $"3 + 4 = {plus}"
     }
 
-let minusfunc() = 
-    async { 
-        let minus = quantumSimulator.Run(Subtract, (10 7)) |> Async.AwaitTask
-        printfn "10 - 7 = %M" minus
+let minusfunc() =
+    async {
+        let! minus = quantumSimulator.Run<Subtract, (double * double), double>(10, 7) |> Async.AwaitTask
+        printfn $"10 - 7 = {minus}"
     }
 
-let productfunc() = 
-    async { 
-        let product = quantumSimulator.Run(Multiply, (5 6)) |> Async.AwaitTask
-        printfn "5 * 6 = %M" product
+let productfunc() =
+    async {
+        let! product = quantumSimulator.Run<Multiply,( double * double), double>(5, 6) |> Async.AwaitTask
+        printfn $"5 * 6 = {product}"
     }
 
 
-let shareBetweenfunc() = 
-    async { 
-        let shareBetween = quantumSimulator.Run(Divide, (12 3)) |> Async.AwaitTask
-        printfn "12 / 3 = %M" shareBetween
+let shareBetweenfunc() =
+    async {
+        let! shareBetween = quantumSimulator.Run<Divide, (double * double), double>(12, 3) |> Async.AwaitTask
+        printfn $"12 / 3 = {shareBetween}"
     }
 
 [<EntryPoint>]
 let main argv =
-    argv
-    |> Seq.map plus minus product shareBetween
-    |> Async.Parallel
+    async {
+        plusfunc() |> ignore
+        minusfunc() |> ignore
+        productfunc() |> ignore
+        shareBetweenfunc() |> ignore
+    }
     |> Async.Ignore
     |> Async.RunSynchronously
 
